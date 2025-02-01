@@ -9,7 +9,7 @@ load "./TinyLexer.rb"
 # simply include the file name, otherwise, you will need
 # to specify the entire path to the file as we did above
 # to load the other ruby modules
-scan = Lexer.new("input.tiny")
+scan = Lexer.new("inp123ut.tiny")
 tok = scan.nextToken()
 
 # the code below will open a file so that I 

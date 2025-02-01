@@ -23,6 +23,12 @@ class Token
 	ALPHA = "id"
 	DIGIT = "int"
 	PRINT = "print"
+	IF = "if"
+	THEN = "then"
+	WHILE = "while"
+	LESS = "<"
+	GREATER = ">"
+	AND = "&"
 
 # add the rest of the tokens needed based on the grammar
 # specified in the Scanner class "TinyScanner.rb"

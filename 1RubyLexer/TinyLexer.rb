@@ -13,6 +13,7 @@ class Lexer
 			@f = File.open(filename,'r:utf-8')
 		rescue
 			puts "Error opening file"
+			exit
 		end
 		# Go ahead and read in the first character in the source
 		# code file (if there is one) so that you can begin
@@ -63,6 +64,15 @@ class Lexer
 		elsif @c == ")"
 			tok = Token.new(Token::RPAREN,@c)
 			nextCh()
+		elsif @c == "<"
+			tok = Token.new(Token::LESS,@c)
+			nextCh()
+		elsif @c == ">"
+			tok = Token.new(Token::GREATER,@c)
+			nextCh()
+		elsif @c == "&"
+			tok = Token.new(Token::AND,@c)
+			nextCh()
 		elsif (whitespace?(@c))
 			str = ""
 		
@@ -82,6 +92,14 @@ class Lexer
 
 			if str == "print" # function
 				tok = Token.new(Token::PRINT,str)
+			elsif str == "print" # function
+				tok = Token.new(Token::PRINT,str)
+			elsif str == "if" # function
+				tok = Token.new(Token::IF,str)
+			elsif str == "while" # function
+				tok = Token.new(Token::WHILE,str)
+			elsif str == "then" # function
+				tok = Token.new(Token::THEN,str)
 			elsif str.length == 1 # variable
 				tok = Token.new(Token::ALPHA,str)
 			else # unknown
