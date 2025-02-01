@@ -9,8 +9,11 @@ class Lexer
 		# Need to modify this code so that the program
 		# doesn't abend if it can't open the file but rather
 		# displays an informative message
-		@f = File.open(filename,'r:utf-8')
-		
+		begin
+			@f = File.open(filename,'r:utf-8')
+		rescue
+			puts "Error opening file"
+		end
 		# Go ahead and read in the first character in the source
 		# code file (if there is one) so that you can begin
 		# lexing the source code file 
@@ -28,6 +31,7 @@ class Lexer
 			@c = @f.getc()
 		else
 			@c = "eof"
+			# puts ("End of file")
 		end
 		
 		return @c
@@ -37,40 +41,69 @@ class Lexer
 	# the next token
 	def nextToken() 
 		if @c == "eof"
-			return Token.new(Token::EOF,"eof")
-				
+			tok = Token.new(Token::EOF,"eof")
+		elsif @c == "="
+			tok = Token.new(Token::ASSIGN,@c)
+			nextCh()
+		elsif @c == "+"
+			tok = Token.new(Token::ADDOP,@c)
+			nextCh()
+		elsif @c == "-"
+			tok = Token.new(Token::SUBDOP,@c)
+			nextCh()
+		elsif @c == "*"
+			tok = Token.new(Token::MULOP,@c)
+			nextCh()
+		elsif @c == "/"
+			tok = Token.new(Token::DIVOP,@c)
+			nextCh()
+		elsif @c == "("
+			tok = Token.new(Token::LPAREN,@c)
+			nextCh()
+		elsif @c == ")"
+			tok = Token.new(Token::RPAREN,@c)
+			nextCh()
 		elsif (whitespace?(@c))
-			str =""
+			str = ""
 		
-			while whitespace?(@c)
+			while whitespace?(@c) && @c != "eof"
 				str += @c
 				nextCh()
 			end
-		
-			tok = Token.new(Token::WS,str)
-			return tok
-		# elsif ...
-		# more code needed here! complete the code here 
-		# so that your scanner can correctly recognize,
-		# print (to a text file), and display all tokens
-		# in our grammar that we found in the source code file
-		
-		# FYI: You don't HAVE to just stick to if statements
-		# any type of selection statement "could" work. We just need
-		# to be able to programatically identify tokens that we 
-		# encounter in our source code file.
-		
-		# don't want to give back nil token!
-		# remember to include some case to handle
-		# unknown or unrecognized tokens.
-		# below is an example of how you "could"
-		# create an "unknown" token directly from 
-		# this scanner. You could also choose to define
-		# this "type" of token in your token class
 
-		tok = Token.new(Token::UNKWN,@c)
+			tok = Token.new(Token::WS,str)
+		elsif (letter?(@c))
+			str = ""
+			
+			while letter?(@c) && @c != "eof"
+				str += @c
+				nextCh()
+			end
+
+			if str == "print" # function
+				tok = Token.new(Token::PRINT,str)
+			elsif str.length == 1 # variable
+				tok = Token.new(Token::ALPHA,str)
+			else # unknown
+				puts ("unknown:" + @c)
+				tok = Token.new(Token::UNKWN,str)
+			end
+		elsif (numeric?(@c))
+			str = ""
+			
+			while numeric?(@c) && @c != "eof"
+				str += @c
+				nextCh()
+			end
+
+			tok = Token.new(Token::DIGIT,str)
+		else
+			tok = Token.new(Token::UNKWN,@c)
+			nextCh()
 		end
-	
+
+		return tok
+	end
 end
 #
 # Helper methods for Scanner

@@ -14,8 +14,15 @@ class Token
 	LPAREN = "("
 	RPAREN = ")"
 	ADDOP  = "+"
+	SUBDOP  = "-"
+	MULOP  = "*"
+	DIVOP  = "/"
 	WS = "whitespace"
-    UNKWN = "unknown"
+	UNKWN = "unknown"
+	ASSIGN = "="
+	ALPHA = "id"
+	DIGIT = "int"
+	PRINT = "print"
 
 # add the rest of the tokens needed based on the grammar
 # specified in the Scanner class "TinyScanner.rb"

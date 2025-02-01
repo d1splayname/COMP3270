@@ -22,6 +22,8 @@ while (tok.get_type() != Token::EOF)
    
    # The instruction below writes your token into a file.
    tokenFile.puts"#{tok}"
+
+   puts("Next token is: #{tok.type} Next lexeme is: #{tok.text}")
    
    # get the next token available (if there is one)
    tok = scan.nextToken()
