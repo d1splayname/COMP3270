@@ -1,0 +1,20 @@
+Next token is: id Next lexeme is: x
+Next token is: = Next lexeme is: =
+Next token is: int Next lexeme is: 3
+Next token is: whitespace Next lexeme is: 
+Next token is: id Next lexeme is: y
+Next token is: = Next lexeme is: =
+Next token is: int Next lexeme is: 5
+Next token is: whitespace Next lexeme is: 
+Next token is: id Next lexeme is: z
+Next token is: = Next lexeme is: =
+Next token is: ( Next lexeme is: (
+Next token is: id Next lexeme is: x
+Next token is: + Next lexeme is: +
+Next token is: id Next lexeme is: y
+Next token is: ) Next lexeme is: )
+Next token is: / Next lexeme is: /
+Next token is: int Next lexeme is: 3
+Next token is: whitespace Next lexeme is: 
+Next token is: print Next lexeme is: print
+Next token is: whitespace Next lexeme is:  
