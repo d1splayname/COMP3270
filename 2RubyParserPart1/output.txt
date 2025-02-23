@@ -1,0 +1,47 @@
+Entering STMT Rule
+Entering ASSGN Rule
+Found ID Token: x
+Found ASSGN Token: =
+Entering EXP Rule
+Entering TERM Rule
+Entering FACTOR Rule
+Found LPAREN Token: (
+Entering EXP Rule
+Entering TERM Rule
+Entering FACTOR Rule
+Found INT Token: 2
+Exiting FACTOR Rule
+Entering TTIAL Rule
+Did not find MULTOP or DIVOP Token, choosing EPSILON production
+Exiting TTIAL Rule
+Exiting TERM Rule
+Entering ETIAL Rule
+Found ADDOP Token: +
+Entering TERM Rule
+Entering FACTOR Rule
+Found INT Token: 3
+Exiting FACTOR Rule
+Entering TTIAL Rule
+Did not find MULTOP or DIVOP Token, choosing EPSILON production
+Exiting TTIAL Rule
+Exiting TERM Rule
+Did not find ADDOP or SUBOP Token, choosing EPSILON production
+Exiting ETIAL Rule
+Exiting EXP Rule
+Found RPAREN Token: )
+Exiting FACTOR Rule
+Entering TTIAL Rule
+Found MULTOP Token: *
+Entering FACTOR Rule
+Found ID Token: dog
+Exiting FACTOR Rule
+Entering TTIAL Rule
+Did not find MULTOP or DIVOP Token, choosing EPSILON production
+Exiting TTIAL Rule
+Exiting TERM Rule
+Did not find ADDOP or SUBOP Token, choosing EPSILON production
+Exiting ETIAL Rule
+Exiting EXP Rule
+Exiting ASSGN Rule
+Exiting STMT Rule
+There were 0 parse errors found.
