@@ -33,7 +33,7 @@ class Lexer
      	if @c == "eof"
         	return Token.new(Token::EOF,"eof")
      	elsif (whitespace?(@c))
-        	str =""
+        	str = ""
         	while whitespace?(@c)
            		str += @c
            		nextCh()
