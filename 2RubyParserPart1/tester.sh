@@ -1,0 +1,1 @@
+ruby main.rb 2>&1 | tee output.txt
