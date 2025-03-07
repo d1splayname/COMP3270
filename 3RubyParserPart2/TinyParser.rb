@@ -29,7 +29,8 @@ class Parser < Lexer
 
     def program()
         @errors_found = 0
-            
+
+        # make issues
         p = AST.new(Token.new("program","program"))
         
         while( @lookahead.type != Token::EOF)
@@ -37,7 +38,10 @@ class Parser < Lexer
         end
         
         puts "There were #{@errors_found} parse errors found."
-    
+        
+        # resolve above issues
+
+
         return p
     end
 
