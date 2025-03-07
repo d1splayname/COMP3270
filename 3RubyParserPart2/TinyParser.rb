@@ -28,17 +28,17 @@ class Parser < Lexer
     end
 
     def program()
-    	@errors_found = 0
-		
-		p = AST.new(Token.new("program","program"))
-		
-	    while( @lookahead.type != Token::EOF)
+        @errors_found = 0
+            
+        p = AST.new(Token.new("program","program"))
+        
+        while( @lookahead.type != Token::EOF)
             p.addChild(statement())
         end
         
         puts "There were #{@errors_found} parse errors found."
-      
-		return p
+    
+        return p
     end
 
     def statement()
@@ -85,7 +85,7 @@ class Parser < Lexer
         factor = AST.new(Token.new("factor","factor"))
 
         if (@lookahead.type == Token::LPAREN)
-            puts("left paren")
+            # puts("left paren")
             match(Token::LPAREN)
             factor = exp()
             if (@lookahead.type == Token::RPAREN)
@@ -94,11 +94,11 @@ class Parser < Lexer
 				match(Token::RPAREN)
             end
         elsif (@lookahead.type == Token::INT)
-            puts("int")
+            # puts("int")
             factor = AST.new(Token.new("int", @lookahead.text))
             match(Token::INT)
         elsif (@lookahead.type == Token::ID)
-            puts("id")
+            # puts("id")
             factor = AST.new(Token.new("id", @lookahead.text))
             match(Token::ID)
         else
@@ -123,6 +123,7 @@ class Parser < Lexer
 
         ttail.addChild(factor())
         ttail.addChild(ttail())
+
         return ttail
     end
 
@@ -139,25 +140,26 @@ class Parser < Lexer
 
         etail.addChild(term())
         etail.addChild(etail())
+
         return etail
     end
 
     def assign()
-        assgn = AST.new(Token.new("assignment","assignment"))
+        assign = AST.new(Token.new("assignment","assignment"))
 		if (@lookahead.type == Token::ID)
 			idtoken = AST.new(@lookahead)
 			match(Token::ID)
 			if (@lookahead.type == Token::ASSGN)
-				assgn = AST.new(@lookahead)
-				assgn.addChild(idtoken)
+				assign = AST.new(@lookahead)
+				assign.addChild(idtoken)
             	match(Token::ASSGN)
-				assgn.addChild(exp())
+				assign.addChild(exp())
         	else
 				match(Token::ASSGN)
 			end
 		else
 			match(Token::ID)
         end
-		return assgn
+		return assign
 	end
 end
