@@ -58,6 +58,7 @@
                                     (display (exp myEnv (cadr stmt)))
                                     myEnv))
         ((eqv? (car stmt) '=) (extend-env myEnv (cadr stmt)(exp myEnv (caddr stmt))))
+        ;;; ((eqv? (car stmt) '
         ( else (display "\nI saw something I didn't  understand.")))))
                     
 ;; exp : expression -> value    
@@ -65,8 +66,18 @@
   (lambda (myEnv e)
     (cond
       ((integer? e) e)
+      ((boolean? e) e)
       ((symbol? e) (apply-env myEnv e ))
+      
       ((eqv? (car e) '+) (+ (exp myEnv (cadr e))(exp myEnv (caddr e))))
+      ((eqv? (car e) '-) (- (exp myEnv (cadr e))(exp myEnv (caddr e))))
+      ((eqv? (car e) '*) (* (exp myEnv (cadr e))(exp myEnv (caddr e))))
+      ((eqv? (car e) '/) (/ (exp myEnv (cadr e))(exp myEnv (caddr e))))
+      
+      ((eqv? (car e) '>) (> (exp myEnv (cadr e))(exp myEnv (caddr e))))
+      ((eqv? (car e) '<) (< (exp myEnv (cadr e))(exp myEnv (caddr e))))
+      ((eqv? (car e) 'and) (and (exp myEnv (cadr e)) (exp myEnv (caddr e))))
+
       (else (display "I saw something I didn't understand")))))
 
 ;;; DON'T TOUCH THE LINE BELOW THIS ONE IF YOU WANT TO RECEIVE A GRADE! ;;;
