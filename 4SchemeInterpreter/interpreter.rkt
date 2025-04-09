@@ -1,6 +1,7 @@
 #lang racket
 ;;#lang racket
 
+;;; errors
 ;; report-no-binding-found : variable -> error
 (define report-no-binding-found
   (lambda (search-var)
@@ -11,6 +12,7 @@
   (lambda (env)
     (error 'apply-env "Bad environment: ~s" env)))
 
+;;; env for variables
 ;; empty-env : () -> environment
 (define empty-env
   (lambda ()
@@ -52,15 +54,18 @@
 ;; interp : statment -> environment
 (define interp
   (lambda (stmt myEnv)
-       (cond
+    (cond
+        ; print
         ((eqv? (car stmt) 'print) (begin
-                                    (display "\n")
-                                    (display (exp myEnv (cadr stmt)))
-                                    myEnv))
+         (display "\n")
+         (display (exp myEnv (cadr stmt)))
+         myEnv))
+
+        ; assignment
         ((eqv? (car stmt) '=) (extend-env myEnv (cadr stmt)(exp myEnv (caddr stmt))))
         ;;; ((eqv? (car stmt) '
         ( else (display "\nI saw something I didn't  understand.")))))
-                    
+
 ;; exp : expression -> value    
 (define exp
   (lambda (myEnv e)
@@ -69,14 +74,17 @@
       ((boolean? e) e)
       ((symbol? e) (apply-env myEnv e ))
       
+      
+      ; arithmatic operators
       ((eqv? (car e) '+) (+ (exp myEnv (cadr e))(exp myEnv (caddr e))))
       ((eqv? (car e) '-) (- (exp myEnv (cadr e))(exp myEnv (caddr e))))
       ((eqv? (car e) '*) (* (exp myEnv (cadr e))(exp myEnv (caddr e))))
       ((eqv? (car e) '/) (/ (exp myEnv (cadr e))(exp myEnv (caddr e))))
       
+      ; comparison operators
       ((eqv? (car e) '>) (> (exp myEnv (cadr e))(exp myEnv (caddr e))))
       ((eqv? (car e) '<) (< (exp myEnv (cadr e))(exp myEnv (caddr e))))
-      ((eqv? (car e) 'and) (and (exp myEnv (cadr e)) (exp myEnv (caddr e))))
+      ((eqv? (car e) '&) (and (exp myEnv (cadr e)) (exp myEnv (caddr e))))
 
       (else (display "I saw something I didn't understand")))))
 
